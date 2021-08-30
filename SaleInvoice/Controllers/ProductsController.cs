@@ -30,17 +30,11 @@ namespace SaleInvoice.Controllers
                 using (BillingContext db = new BillingContext())
                 {
                     var lst = db.Product.ToList();
-                  var lst2 = db.Product.Where(x => x.Stock <= 5).ToList();
-                    
-                  
-                    
-
-
+                    var lst2 = db.Product.Where(x => x.Stock <= 5).ToList();
                     oAnswer.Exito = 1;
                     oAnswer.Data = lst;
                     oAnswer.Data2 = lst2;
                   
-
                 }
             }
             catch (Exception ex)
@@ -94,7 +88,7 @@ namespace SaleInvoice.Controllers
                     oProducto.DescriptionProducto = oModel.DescriptionProducto;
                     oProducto.UnitPrice = oModel.UnitPrice;
                     oProducto.Stock = oModel.Stock;
-                    db.Entry(oProducto).State = Microsoft.EntityFrameworkCore.EntityState.Modified; ;
+                    db.Entry(oProducto).State = Microsoft.EntityFrameworkCore.EntityState.Modified; 
                     db.SaveChanges();
                     oRespuesta.Exito = 1;
                 }
