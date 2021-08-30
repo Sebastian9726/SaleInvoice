@@ -94,7 +94,7 @@ namespace SaleInvoice.Controllers
                     oProducto.DescriptionProducto = oModel.DescriptionProducto;
                     oProducto.UnitPrice = oModel.UnitPrice;
                     oProducto.Stock = oModel.Stock;
-                    db.Entry(oProducto).State = Microsoft.EntityFrameworkCore.EntityState.Modified; ;
+                    db.Entry(oProducto).State = Microsoft.EntityFrameworkCore.EntityState.Modified; 
                     db.SaveChanges();
                     oRespuesta.Exito = 1;
                 }

@@ -30,7 +30,7 @@ namespace SaleInvoice.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=CONTABILIDAD03\\SQLEXPRESS;Database=VentaReal;Database=Billing;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=CONTABILIDAD03\\SQLEXPRESS;Database=Billing;Trusted_Connection=True;");
             }
         }
 
@@ -53,7 +53,7 @@ namespace SaleInvoice.Models
             modelBuilder.Entity<Product>(entity =>
             {
                 entity.HasKey(e => e.IdProduct)
-                    .HasName("PK__Product__2E8946D40FE4474F");
+                    .HasName("PK_Product_1");
 
                 entity.Property(e => e.DescriptionProducto)
                     .HasMaxLength(100)
@@ -73,6 +73,12 @@ namespace SaleInvoice.Models
                     .HasForeignKey(d => d.IdProductSold)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ProductSold_Sold");
+
+                entity.HasOne(d => d.IdProductSold1)
+                    .WithMany(p => p.ProductSold)
+                    .HasForeignKey(d => d.IdProductSold)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ProductSold_Product");
             });
 
             modelBuilder.Entity<Seller>(entity =>

@@ -16,6 +16,7 @@ namespace SaleInvoice.Models
         public int? Aumont { get; set; }
         public DateTime? RegisterSold { get; set; }
 
+        public virtual Product IdProductSold1 { get; set; }
         public virtual Sold IdProductSoldNavigation { get; set; }
     }
 }

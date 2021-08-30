@@ -23,14 +23,16 @@ namespace SaleInvoice.Services
                             oSell.IdSeller = oModel.IdSeller;
                             oSell.IdCustomer = oModel.IdCustomers;
                             oSell.Registration = DateTime.Now;
-                            db.Sold.Add(oSell);
-                            db.SaveChanges();
-                            foreach (var modelConceptProduct in oModel.Products)
+                        
+                        
+                            var total =0.0;
+                        foreach (var modelConceptProduct in oModel.Products)
                             {
 
                                 //Actualizacion tabla ProductSold
                                 ProductSold productSold = new ProductSold();
-
+                                Sold oldSold = db.Sold.Find(oSell.Id);
+                                
                                 var OldProductValue = db.Product.Find(modelConceptProduct.IdProduct);
                                 productSold.IdProductSold = oSell.Id;
                                 productSold.RegisterSold = oSell.Registration;
@@ -38,16 +40,23 @@ namespace SaleInvoice.Services
                                 productSold.Aumont = modelConceptProduct.Amount;
                                 productSold.TotalProduct = modelConceptProduct.Amount * OldProductValue.UnitPrice;
                                 OldProductValue.Stock = OldProductValue.Stock - modelConceptProduct.Amount;
+                                total += (modelConceptProduct.Amount * OldProductValue.UnitPrice);
                                 db.Entry(OldProductValue).State = Microsoft.EntityFrameworkCore.EntityState.Modified; ;
-                                db.ProductSold.Add(productSold);
                                 db.SaveChanges();
                             }
-                            transaction.Commit();
-                            //Oconcept.Total =;
-                            ///faltaaa totaaaal
-                            ///tottaaaaal
-                            
-                        }
+
+
+                               ;
+                        oSell.Total = total;
+                            db.Sold.Add(oSell);
+                        db.SaveChanges();
+
+
+
+                        transaction.Commit();
+                      
+
+                    }
                         catch (Exception)
                         {
                             transaction.Rollback();

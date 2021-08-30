@@ -9,11 +9,18 @@ namespace SaleInvoice.Models
 {
     public partial class Product
     {
+        public Product()
+        {
+            ProductSold = new HashSet<ProductSold>();
+        }
+
         public int IdProduct { get; set; }
         public string NameProduct { get; set; }
         public string DescriptionProducto { get; set; }
         public int? Active { get; set; }
         public int? Stock { get; set; }
         public double UnitPrice { get; set; }
+
+        public virtual ICollection<ProductSold> ProductSold { get; set; }
     }
 }
